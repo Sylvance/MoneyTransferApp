@@ -1,0 +1,24 @@
+<div id="topup">
+    <h2>Top up</h2>
+    <%= form_with(model: account_top_up, url: pages_create_account_top_up_path, local: true) do |form| %>
+        <% if account_top_up.errors.any? %>
+            <div id="error_explanation">
+                <h3><%= pluralize(account_top_up.errors.count, "error") %> prohibited this account top up from being saved:</h3>
+                <ul>
+                    <% account_top_up.errors.full_messages.each do |message| %>
+                        <li><%= message %></li>
+                    <% end %>
+                </ul>
+            </div>
+        <% end %>
+
+        <div class="field">
+            <%= form.label :amount %>
+            <%= form.text_field :amount %>
+        </div>
+
+        <div class="actions">
+            <%= form.submit "Top up", class: "submit-button" %>
+        </div>
+    <% end %>
+</div>

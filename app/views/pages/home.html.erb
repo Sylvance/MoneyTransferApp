@@ -1,167 +1,20 @@
 <div class="container">
     <h1>MoneyTransferApp</h1>
 
-    <div id="transaction">
-        <h2>Transaction</h2>
-        <%= form_with(model: @transaction, url: pages_create_transaction_path, local: true) do |form| %>
-            <% if @transaction.errors.any? %>
-                <div id="error_explanation">
-                    <h3><%= pluralize(@transaction.errors.count, "error") %> prohibited this transaction from being saved:</h3>
-                    <ul>
-                        <% @transaction.errors.full_messages.each do |message| %>
-                            <li><%= message %></li>
-                        <% end %>
-                    </ul>
-                </div>
-            <% end %>
-
-            <div class="field">
-                <%= form.label :recipient_id %>
-                <%= form.collection_select :recipient_id, User.all, :email, :email %>
-            </div>
-
-            <div class="field">
-                <%= form.label :amount %>
-                <%= form.text_field :amount %>
-            </div>
-
-            <div class="actions">
-                <%= form.submit "Send Money", class: "submit-button" %>
-            </div>
-        <% end %>
-    </div>
-
-    <div id="topup">
-        <h2>Top up</h2>
-        <%= form_with(model: @account_top_up, url: pages_create_account_top_up_path, local: true) do |form| %>
-            <% if @account_top_up.errors.any? %>
-                <div id="error_explanation">
-                    <h3><%= pluralize(@account_top_up.errors.count, "error") %> prohibited this account top up from being saved:</h3>
-                    <ul>
-                        <% @account_top_up.errors.full_messages.each do |message| %>
-                            <li><%= message %></li>
-                        <% end %>
-                    </ul>
-                </div>
-            <% end %>
-
-            <div class="field">
-                <%= form.label :amount %>
-                <%= form.text_field :amount %>
-            </div>
-
-            <div class="actions">
-                <%= form.submit "Top up", class: "submit-button" %>
-            </div>
-        <% end %>
-    </div>
-
-    <div id="register">
-        <h1>Register</h1>
-
-        <%= form_with(model: @user, url: pages_create_user_path, local: true) do |form| %>
-
-            <% if @user.errors.any? %>
-            <div id="error_explanation">
-                <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being registered:</h2>
-
-                <ul>
-                <% @user.errors.full_messages.each do |message| %>
-                    <li><%= message %></li>
-                <% end %>
-                </ul>
-            </div>
-            <% end %>
-
-            <div class="field">
-                <%= form.label :email %>
-                <%= form.text_field :email %>
-            </div>
-
-            <div class="field">
-                <%= form.label :phone_number %>
-                <%= form.text_field :phone_number %>
-            </div>
-
-            <div class="actions">
-                <%= form.submit %>
-            </div>
-        <% end %>
-    </div>
-
-    <div id="login">
-        <h1>Login</h1>
-
-        <%= form_with(model: @user, url: pages_create_user_path, local: true) do |form| %>
-
-            <% if @user.errors.any? %>
-            <div id="error_explanation">
-                <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being logged in:</h2>
-
-                <ul>
-                <% @user.errors.full_messages.each do |message| %>
-                    <li><%= message %></li>
-                <% end %>
-                </ul>
-            </div>
-            <% end %>
-
-            <div class="field">
-                <%= form.label :email %>
-                <%= form.text_field :email %>
-            </div>
-
-            <div class="field">
-                <%= form.label :password %>
-                <%= form.password_field :password %>
-            </div>
-
-            <div class="actions">
-                <%= form.submit %>
-            </div>
-        <% end %>
-    </div>
-
-    <div id="dashboard">
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="timeline-content">
-                <h2 class="timeline-title">User Details</h2>
-                <p class="timeline-description"><strong>Email:</strong> <%= @user.email %></p>
-                <p class="timeline-date"><strong>Phone Number:</strong> <%= @user.phone_number %></p>
-                <p class="timeline-date"><strong>Balance:</strong> <%= number_to_currency(@user.balance) %></p>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <div class="timeline-content">
-                <h2 class="timeline-title">Notifications</h2>
-                <% @user.notifications.each do |notification| %>
-                    <p class="timeline-description"><%= notification.message %></p>
-                    <p class="timeline-date"><%= notification.created_at %></p>
-                <% end %>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <h2 class="timeline-title">Received Transactions</h2>
-                    <% @user.received_transactions.each do |transaction| %>
-                        <p class="timeline-description"><%= transaction.sender.email %> sent <%= number_to_currency(transaction.amount) %></p>
-                        <p class="timeline-date"><%= transaction.created_at %></p>
-                    <% end %>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <h2 class="timeline-title">Sent Transactions</h2>
-                    <% @user.sent_transactions.each do |transaction| %>
-                        <p class="timeline-description"><%= transaction.sender.email %> sent <%= number_to_currency(transaction.amount) %></p>
-                        <p class="timeline-date"><%= transaction.created_at %></p>
-                    <% end %>
-                </div>
-            </div>
+    <% case @show_page %>
+    <% when :transaction %>
+        <%= render partial: 'partials/transaction', locals: { transaction: @transaction } %>
+    <% when :topup %>
+        <%= render partial: 'partials/topup', locals: { account_top_up: @account_top_up } %>
+    <% when :register %>
+        <%= render partial: 'partials/register', locals: { user: @user } %>
+    <% when :login %>
+        <%= render partial: 'partials/login', locals: { user: @user } %>
+    <% when :dashboard %>
+        <%= render partial: 'partials/dashboard', locals: { user: @user } %>
+    <% else %>
+        <div id="empty">
+            <h2>Empty Page</h2>
         </div>
-    </div>
+    <% end %>
 </div>

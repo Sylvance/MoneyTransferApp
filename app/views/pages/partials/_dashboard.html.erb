@@ -1,0 +1,42 @@
+<div id="dashboard">
+    <div class="timeline">
+        <div class="timeline-item">
+            <div class="timeline-content">
+            <h2 class="timeline-title">User Details</h2>
+            <p class="timeline-description"><strong>Email:</strong> <%= user.email %></p>
+            <p class="timeline-date"><strong>Phone Number:</strong> <%= user.phone_number %></p>
+            <p class="timeline-date"><strong>Balance:</strong> <%= number_to_currency(user.balance) %></p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-content">
+            <h2 class="timeline-title">Notifications</h2>
+            <% user.notifications.each do |notification| %>
+                <p class="timeline-description"><%= notification.message %></p>
+                <p class="timeline-date"><%= notification.created_at %></p>
+            <% end %>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-content">
+                <h2 class="timeline-title">Received Transactions</h2>
+                <% user.received_transactions.each do |transaction| %>
+                    <p class="timeline-description"><%= transaction.sender.email %> sent <%= number_to_currency(transaction.amount) %></p>
+                    <p class="timeline-date"><%= transaction.created_at %></p>
+                <% end %>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-content">
+                <h2 class="timeline-title">Sent Transactions</h2>
+                <% user.sent_transactions.each do |transaction| %>
+                    <p class="timeline-description"><%= transaction.sender.email %> sent <%= number_to_currency(transaction.amount) %></p>
+                    <p class="timeline-date"><%= transaction.created_at %></p>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>

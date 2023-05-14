@@ -1,0 +1,29 @@
+<div id="transaction">
+    <h2>Transaction</h2>
+    <%= form_with(model: transaction, url: pages_create_transaction_path, local: true) do |form| %>
+        <% if transaction.errors.any? %>
+            <div id="error_explanation">
+                <h3><%= pluralize(transaction.errors.count, "error") %> prohibited this transaction from being saved:</h3>
+                <ul>
+                    <% transaction.errors.full_messages.each do |message| %>
+                        <li><%= message %></li>
+                    <% end %>
+                </ul>
+            </div>
+        <% end %>
+
+        <div class="field">
+            <%= form.label :recipient_id %>
+            <%= form.collection_select :recipient_id, User.all, :email, :email %>
+        </div>
+
+        <div class="field">
+            <%= form.label :amount %>
+            <%= form.text_field :amount %>
+        </div>
+
+        <div class="actions">
+            <%= form.submit "Send Money", class: "submit-button" %>
+        </div>
+    <% end %>
+</div>

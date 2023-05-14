@@ -6,27 +6,24 @@ class PagesController < ApplicationController
   before_action :require_login
 
   def home
-    @show_page = params[:page].present? ? params[:page] : :empty
+    @show_page = params[:page] || :empty
 
     if logged_in?
-      @user = User.find(session[:user_id])
-
       case @show_page
       when :dashboard
-        @users = User.all
+        @user = User.find(session[:user_id])
       when :transaction
         @transaction = Transaction.new
       when :topup
         @account_top_up = AccountTopUp.new
-      else
-        @users = User.all
       end
     else
-      @user = case @show_page
-              when :login
-              when :register
-              end
-      User.new
+      case @show_page
+      when :login
+        @user = User.none
+      when :register
+        @user = User.new
+      end
     end
   end
 
@@ -38,10 +35,10 @@ class PagesController < ApplicationController
     @transaction = Transaction.new(sender: sender, recipient: recipient, amount: amount)
 
     if @transaction.save
-      response(notice: 'Transaction was successfully created.', params: {})
+      response(notice: 'Transaction was successfully created.', params: { page: :dashboard })
     else
       @users = User.all
-      response(notice: 'Transaction was not created.', params: {})
+      response(notice: 'Transaction was not created.', params: { page: :dashboard })
     end
   end
 
@@ -52,10 +49,10 @@ class PagesController < ApplicationController
     @account_top_up = AccountTopUp.new(user: account_user, amount: amount)
 
     if @account_top_up.save
-      response(notice: 'Account Top Up was successfully created.', params: {})
+      response(notice: 'Account Top Up was successfully created.', params: { page: :dashboard })
     else
       @users = User.all
-      response(notice: 'Account Top Up was not created.', params: {})
+      response(notice: 'Account Top Up was not created.', params: { page: :dashboard })
     end
   end
 
@@ -63,9 +60,9 @@ class PagesController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      response(notice: 'User was successfully created.', params: {})
+      response(notice: 'User was successfully created.', params: { page: :dashboard })
     else
-      response(notice: 'User was not created.', params: {})
+      response(notice: 'User was not created.', params: { page: :dashboard })
     end
   end
 
@@ -74,30 +71,32 @@ class PagesController < ApplicationController
 
     if @user&.authenticate(session_params[:password])
       session[:user_id] = @user.id
-      response(notice: 'Login successful!', params: {})
+      response(notice: 'Login successful!', params: { page: :dashboard })
     else
-      response(notice: 'Invalid login details.', params: {})
+      response(notice: 'Invalid login details.', params: { page: :dashboard })
     end
   end
 
   def delete_session
     if session[:user_id].present?
       session[:user_id] = nil
-      response(notice: 'Logout successful!', params: {})
+      response(notice: 'Logout successful!', params: { page: :dashboard })
     else
-      response(notice: 'Failed to log out.', params: {})
+      response(notice: 'Failed to log out.', params: { page: :dashboard })
     end
   end
 
   private
 
   def response(alert: '', notice: '', params: {})
-    redirect_to root_path(alert: alert, notice: notice, **params)
+    flash[:alert] = alert
+    flash[:notice] = notice
+    render :home, locals: params
   end
 
   def require_login
-    response(notice: 'Log in first to continue.', params: {}) unless logged_in?
-  end
+    render :home, notice: 'Log in first to continue.' unless logged_in?
+  end  
 
   def logged_in?
     session[:user_id].present?
