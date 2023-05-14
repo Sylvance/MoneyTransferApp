@@ -15,128 +15,127 @@
  */
 /* Mobile-first styles */
 body {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-  }
-  
-  h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  .field {
-    margin-bottom: 20px;
-  }
-  
-  label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
-  
-  input[type="text"],
-  select {
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-  }
-  
-  .actions {
-    margin-top: 20px;
-  }
-  
-  /* Fintech-themed styles */
-  body {
-    background-color: #f2f2f2;
-  }
-  
-  h1 {
-    color: #333;
-  }
-  
-  #error_explanation {
-    background-color: #ffdddd;
-    color: #cc0000;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-  }
-  
-  ul {
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-  }
-  
-  ul li {
-    margin-bottom: 5px;
-  }
-  
-  .form-control {
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    padding: 10px;
-  }
-  
-  .field {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .actions {
-    text-align: center;
-  }
-  
-  .submit-button {
-    background-color: #1da1f2;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .submit-button:hover {
-    background-color: #1a91da;
-  }
-  
-  /* General default styles inspired by Twitter timeline */
-  .container {
-    background-color: #fff;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    padding: 20px;
-  }
-  
-  .timeline {
-    margin-top: 20px;
-  }
-  
-  .timeline-item {
-    border-bottom: 1px solid #eee;
-    padding-bottom: 20px;
-    margin-bottom: 20px;
-  }
-  
-  .timeline-content {
-    margin-left: 60px;
-  }
-  
-  .timeline-title {
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
-  
-  .timeline-description {
-    color: #555;
-    margin-bottom: 10px;
-  }
-  
-  .timeline-date {
-    color: #888;
-    font-size: 14px;
-  }
-  
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.field {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.actions {
+  margin-top: 20px;
+}
+
+/* Fintech-themed styles */
+body {
+  background-color: #f2f2f2;
+}
+
+h1 {
+  color: #333;
+}
+
+#error_explanation {
+  background-color: #ffdddd;
+  color: #cc0000;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+ul li {
+  margin-bottom: 5px;
+}
+
+.form-control {
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+.actions {
+  text-align: center;
+}
+
+.submit-button {
+  background-color: #1da1f2;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #1a91da;
+}
+
+/* General default styles inspired by Twitter timeline */
+.container {
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.timeline {
+  margin-top: 20px;
+}
+
+.timeline-item {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.timeline-content {
+  margin-left: 60px;
+}
+
+.timeline-title {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.timeline-description {
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.timeline-date {
+  color: #888;
+  font-size: 14px;
+}

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PagesController < ApplicationController
   include ActionView::Helpers::NumberHelper
 
@@ -20,21 +22,18 @@ class PagesController < ApplicationController
         @users = User.all
       end
     else
-      case @show_page
-      when :login
-        @user = User.new
-      when :register
-        @user = User.new
-      else
-        @user = User.new
-      end
+      @user = case @show_page
+              when :login
+              when :register
+              end
+      User.new
     end
   end
 
   def create_transaction
     amount = transaction_params[:amount].to_f
-    recipient = User.find_by(email: transaction_params[:recipient_id])
     sender = User.find(session[:user_id])
+    recipient = User.find_by(email: transaction_params[:recipient_id])
 
     @transaction = Transaction.new(sender: sender, recipient: recipient, amount: amount)
 
